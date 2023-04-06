@@ -122,13 +122,30 @@ public class Database implements DatabaseTemplates{
 				closeAll(ps, conn);
 			}
 		}
+	
+	
 		
+		/*전자지갑 삭제*/
 		@Override
-		public void deleteWallet(String Id) {
+		public void deleteWallet(int walNo) throws SQLException, AttributeNotFoundException{
 			Connection conn = null;
 			PreparedStatement ps = null;
-			
+			try {
+				conn = getConnect();
+				if(isExist(walNo, conn)) {
+					String query = "DELETE wallet WHERE wallet_no=?";
+					ps = conn.prepareStatement(query);
+					ps.setInt(1, walNo);
+					
+					System.out.println(ps.executeUpdate()+" 명 DELETE OK...deleteCustomer()..");
+				}else {
+					throw new AttributeNotFoundException("삭제할 대상의 고객이 없습니다 ");
+				}
+			}finally {
+				closeAll(ps, conn);
+			}	
 		}
+		
 		
 		
 		
