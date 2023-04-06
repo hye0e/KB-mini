@@ -28,7 +28,8 @@ public interface DatabaseTemplates {
 	int getAccountBalance();
 	
 	void createWallet(Wallet wl) throws SQLException;
-	void deleteWallet(String Id);
+	void deleteWallet(int walNo) throws SQLException, AttributeNotFoundException;
+	
 	
 	
 	ArrayList<Coin> getCoinList() throws SQLException;
